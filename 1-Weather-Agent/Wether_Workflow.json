@@ -1,0 +1,128 @@
+{
+  "name": "Wether Workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -880,
+        100
+      ],
+      "id": "7eb2511f-77c2-4310-9876-02cd4e77662c",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "790b3606-7816-4b45-b365-9094c6e380f4",
+              "name": "query",
+              "value": "San Francisco",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -660,
+        100
+      ],
+      "id": "66e4f1fb-aa2a-4381-88a3-0bf6dab7b824",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "cityName": "={{ $json.query }}"
+      },
+      "type": "n8n-nodes-base.openWeatherMap",
+      "typeVersion": 1,
+      "position": [
+        -440,
+        100
+      ],
+      "id": "65eba542-e38d-4a26-855d-779754fcf532",
+      "name": "OpenWeatherMap",
+      "credentials": {
+        "openWeatherMapApi": {
+          "id": "yaFydRKcod8KfsSf",
+          "name": "OpenWeatherMap account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1afe07d3-a64c-4560-a1ed-059b6cbff838",
+              "name": "response",
+              "value": "={{ $json.weather[0].description }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -220,
+        100
+      ],
+      "id": "8b137655-4628-4631-86fd-dc0cf2cfc0e0",
+      "name": "Response"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "OpenWeatherMap",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenWeatherMap": {
+      "main": [
+        [
+          {
+            "node": "Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "aff7b8e5-0139-481a-8810-fd36013035bb",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "639b54bd73c68c7f9aadd9d0b292b612c0f12cb5aba7e74d7ded1267d1ab8238"
+  },
+  "id": "WEPpPnuLVc6P0iNh",
+  "tags": []
+}
